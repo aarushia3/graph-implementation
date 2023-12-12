@@ -10,6 +10,7 @@ Graph::Graph(std::vector<std::vector<int>> givenMatrix){
     adjacencyMatrix = givenMatrix;
 }
 
+// not tested yet
 Graph& Graph::operator=(Graph& copy_from){
     adjacencyMatrix = copy_from.getAdjacencyMatrix();
     return *this;
@@ -27,20 +28,23 @@ void Graph::removeEdge(int u, int v){
 
 void Graph::insertVertex(){
     adjacencyMatrix.resize(adjacencyMatrix.size() + 1);
-    for (std::vector<int> v : adjacencyMatrix) {
-        v.resize(v.size() + 1);
+    adjacencyMatrix.back().resize(adjacencyMatrix[0].size(), -1);
+
+    for (std::vector<int>& v : adjacencyMatrix) {
+        v.push_back(-1);
     }
-    return;
 }
 
+// fix this!
 void Graph::removeVertex(int u){
     adjacencyMatrix.resize(adjacencyMatrix.size() - 1);
-    for (std::vector<int> v : adjacencyMatrix) {
+    for (std::vector<int>& v : adjacencyMatrix) {
         v.resize(v.size() - 1);
     }
     return;
 }
 
+// not tested yet
 std::vector<int> Graph::getIncidentEdges(int u){
     std::vector<int> edgeWeights;
     for (unsigned i = 0; i < getAdjacencyMatrix().size(); i ++){
@@ -54,6 +58,7 @@ std::vector<int> Graph::getIncidentEdges(int u){
     return edgeWeights;
 }
 
+// not tested yet
 bool Graph::isAdjacent(int u, int v) {
     return (adjacencyMatrix[u][v] != -1);
 }
@@ -62,6 +67,7 @@ std::vector<std::vector<int>>& Graph::getAdjacencyMatrix(){
     return adjacencyMatrix;
 }
 
+// not tested yet
 int Graph::getDegree(int u){
     return (int)getIncidentEdges(u).size();
 }
