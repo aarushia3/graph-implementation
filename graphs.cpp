@@ -10,7 +10,6 @@ Graph::Graph(std::vector<std::vector<int>> givenMatrix){
     adjacencyMatrix = givenMatrix;
 }
 
-// not tested yet
 Graph& Graph::operator=(Graph& copy_from){
     adjacencyMatrix = copy_from.getAdjacencyMatrix();
     return *this;
@@ -35,12 +34,11 @@ void Graph::insertVertex(){
     }
 }
 
-// fix this!
 void Graph::removeVertex(int u){
-    adjacencyMatrix.resize(adjacencyMatrix.size() - 1);
     for (std::vector<int>& v : adjacencyMatrix) {
-        v.resize(v.size() - 1);
+        v.erase(std::next(v.begin(), u));
     }
+    adjacencyMatrix.erase(std::next(adjacencyMatrix.begin(), u));
     return;
 }
 
