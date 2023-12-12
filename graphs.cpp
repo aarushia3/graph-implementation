@@ -45,8 +45,10 @@ std::vector<int> Graph::getIncidentEdges(int u){
     std::vector<int> edgeWeights;
     for (unsigned i = 0; i < getAdjacencyMatrix().size(); i ++){
         if (i != (unsigned)u) {
-            edgeWeights.push_back(adjacencyMatrix[i][u]);
-            edgeWeights.push_back(adjacencyMatrix[u][i]);
+            if (adjacencyMatrix[i][u] != -1)
+                edgeWeights.push_back(adjacencyMatrix[i][u]);
+            if (adjacencyMatrix[u][i] != -1)
+                edgeWeights.push_back(adjacencyMatrix[u][i]);
         }
     }
     return edgeWeights;
@@ -54,4 +56,32 @@ std::vector<int> Graph::getIncidentEdges(int u){
 
 bool Graph::isAdjacent(int u, int v) {
     return (adjacencyMatrix[u][v] != -1);
+}
+
+std::vector<std::vector<int>>& Graph::getAdjacencyMatrix(){
+    return adjacencyMatrix;
+}
+
+int Graph::getDegree(int u){
+    return (int)getIncidentEdges(u).size();
+}
+
+std::vector<int> Graph::getEdgeWeights(){
+    std::vector<int> edgeWeights;
+    for (unsigned i = 0; i < getAdjacencyMatrix().size(); i ++){
+        for (unsigned j = 0; j < getAdjacencyMatrix().size(); j ++){
+            if (adjacencyMatrix[i][j] != -1){
+                edgeWeights.push_back(adjacencyMatrix[i][j]);
+            }
+        }
+    }
+    return edgeWeights;
+}
+
+std::vector<int> Graph::getVertices(){
+    std::vector<int> vertices;
+    for (int i = 0; i < (int)adjacencyMatrix.size(); i ++){
+        vertices.push_back(i);
+    }
+    return vertices;
 }
