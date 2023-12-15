@@ -1,22 +1,22 @@
-#include <iostream>
 #include "graphs.h"
 
 int main() {
     std::cout << "Let's test my graph out!" << std::endl;
     Graph g;
+
+    // test for inserting vertex
     g.insertVertex();
     g.insertVertex();
     g.insertVertex();
 
+    // test for inserting edge
     g.insertEdge(0,1,3);
     g.insertEdge(1,2,7);
     g.insertEdge(0,2,5);
 
-    std::vector<int> vertices = g.getVertices();
-    std::vector<int> edgeWeights = g.getEdgeWeights();
+    // test for getAdjacencyMatrix
     std::vector<std::vector<int>> adjMatrix = g.getAdjacencyMatrix();
 
-    // Testing insert edge and remove edge
     std::cout << "Below is the adjacency matrix: " << std::endl;
     for (int i = 0; i < 3; i ++){
         for (int j = 0; j < 3; j ++){
@@ -26,6 +26,7 @@ int main() {
     }
 
     // testing getVertices
+    std::vector<int> vertices = g.getVertices();
     std::cout << std::endl;
     std::cout << "Here is the vertex list: " << std::endl;
     for (unsigned i = 0; i < vertices.size(); i ++) {
@@ -34,6 +35,7 @@ int main() {
     std::cout << std::endl;
 
     // testing getEdgeWeights
+    std::vector<int> edgeWeights = g.getEdgeWeights();
     std::cout << "Here are all the edge weights (can be used for Kruskal's!)" << std::endl;
     for (unsigned i = 0; i < edgeWeights.size(); i ++) {
         std::cout << edgeWeights[i] << " ";
@@ -76,6 +78,29 @@ int main() {
             std::cout << moreAdjMatrix[i][j] << " | ";
         }
         std::cout << std::endl;
+    }
+
+    // testing isAdjacent
+    bool adjacentTest = g.isAdjacent(2,1);
+    if (adjacentTest) {
+        std::cout << "Test 1 for isAdjacent passed!" << std::endl;
+    } else {
+        std::cout << "Test 1 for isAdjacent failed." << std::endl;
+    }
+
+    bool adjacentTest2 = g.isAdjacent(2,2);
+    if (!adjacentTest2) {
+        std::cout << "Test 2 for isAdjacent passed!" << std::endl;
+    } else {
+        std::cout << "Test 2 for isAdjacent failed." << std::endl;
+    }
+
+    int degree = g.getDegree(0);
+    std::cout << degree << std::endl;
+    if (degree == 2) {
+        std::cout << "Test for getDegree passed!" << std::endl;
+    } else {
+        std::cout << "Test for getDegree failed." << std::endl;
     }
 
     g.removeVertex(2);

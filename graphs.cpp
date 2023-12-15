@@ -16,11 +16,19 @@ Graph& Graph::operator=(Graph& copy_from){
 }
 
 void Graph::insertEdge(int u, int v, int edgeWeight){
+    if ((u >= adjacencyMatrix.size()) || (v >= adjacencyMatrix.size()) || (u < 0) || (v < 0)) {
+        std::cout << "Out of bounds, can't insert edge." << std::endl;
+        return;
+    }
     adjacencyMatrix[u][v] = edgeWeight;
     return;
 }
 
 void Graph::removeEdge(int u, int v){
+    if ((u >= adjacencyMatrix.size()) || (v >= adjacencyMatrix.size()) || (u < 0) || (v < 0)) {
+        std::cout << "Out of bounds, can't remove edge." << std::endl;
+        return;
+    }
     adjacencyMatrix[u][v] = -1;
     return;
 }
@@ -35,6 +43,10 @@ void Graph::insertVertex(){
 }
 
 void Graph::removeVertex(int u){
+    if ((u >= adjacencyMatrix.size()) || (u < 0) ) {
+        std::cout << "Out of bounds, can't remove vertex." << std::endl;
+        return;
+    }
     for (std::vector<int>& v : adjacencyMatrix) {
         v.erase(std::next(v.begin(), u));
     }
@@ -42,31 +54,45 @@ void Graph::removeVertex(int u){
     return;
 }
 
-// not tested yet
 std::vector<int> Graph::getIncidentEdges(int u){
+    if ((u >= adjacencyMatrix.size()) || (u < 0) ) {
+        std::cout << "Out of bounds, can't get incident edges." << std::endl;
+        return std::vector<int>();
+    }
+
     std::vector<int> edgeWeights;
     for (unsigned i = 0; i < getAdjacencyMatrix().size(); i ++){
         if (i != (unsigned)u) {
+            // currently, incident edges is implied to mean edges coming out of the node
             if (adjacencyMatrix[i][u] != -1)
                 edgeWeights.push_back(adjacencyMatrix[i][u]);
-            if (adjacencyMatrix[u][i] != -1)
-                edgeWeights.push_back(adjacencyMatrix[u][i]);
         }
     }
     return edgeWeights;
 }
 
-// not tested yet
 bool Graph::isAdjacent(int u, int v) {
-    return (adjacencyMatrix[u][v] != -1);
+    if ((u >= adjacencyMatrix.size()) || (v >= adjacencyMatrix.size()) || (u < 0) || (v < 0)) {
+        std::cout << "Out of bounds! Returns false by default." << std::endl;
+        return false;
+    } else if (adjacencyMatrix[u][v] == -1) {
+        return false;
+    } else if (adjacencyMatrix[v][u] == -1) {
+        return false;
+    } else {
+        return true;
+    }
 }
 
 std::vector<std::vector<int>>& Graph::getAdjacencyMatrix(){
     return adjacencyMatrix;
 }
 
-// not tested yet
 int Graph::getDegree(int u){
+    if ((u >= adjacencyMatrix.size()) || (u < 0) ) {
+        std::cout << "Out of bounds, can't get degree." << std::endl;
+        return -1;
+    }
     return (int)getIncidentEdges(u).size();
 }
 
@@ -88,4 +114,13 @@ std::vector<int> Graph::getVertices(){
         vertices.push_back(i);
     }
     return vertices;
+}
+
+std::unordered_map<int, int> Graph::getEdgesWithVertices() {
+    std::vector<int> edgeWeights = getEdgeWeights();
+    std::unordered_map<int, int> edgesAndVertices;
+    for (unsigned i = 0; i < (getAdjacencyMatrix().size() * getAdjacencyMatrix().size()); i++) {
+        edgesAndVertices[i] = edgeWeights[i];
+    }
+    return edgesAndVertices;
 }
