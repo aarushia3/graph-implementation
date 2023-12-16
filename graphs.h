@@ -28,6 +28,6 @@ class Graph {
         int getDegree(int u);
         std::vector<int> getEdgeWeights();
         std::vector<int> getVertices();
-        std::unordered_map<int, int> getEdgesWithVertices();
-
+        std::vector<int> getAdjacentVertices(int u);
+        
 };

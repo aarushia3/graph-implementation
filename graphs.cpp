@@ -29,7 +29,7 @@ void Graph::removeEdge(int u, int v){
         std::cout << "Out of bounds, can't remove edge." << std::endl;
         return;
     }
-    adjacencyMatrix[u][v] = -1;
+    adjacencyMatrix[std::min(u,v)][std::max(u,v)] = -1;
     return;
 }
 
@@ -61,11 +61,11 @@ std::vector<int> Graph::getIncidentEdges(int u){
     }
 
     std::vector<int> edgeWeights;
-    for (unsigned i = 0; i < getAdjacencyMatrix().size(); i ++){
-        if (i != (unsigned)u) {
-            // currently, incident edges is implied to mean edges coming out of the node
-            if (adjacencyMatrix[i][u] != -1)
-                edgeWeights.push_back(adjacencyMatrix[i][u]);
+    for (unsigned i = 0; i < (getAdjacencyMatrix().size() * getAdjacencyMatrix().size()); i ++){
+        if ((int)i < u) {
+            edgeWeights.push_back(getAdjacencyMatrix()[u][i]);
+        } else if ((int)i > u) {
+            edgeWeights.push_back(getAdjacencyMatrix()[i][u]);
         }
     }
     return edgeWeights;
@@ -75,9 +75,7 @@ bool Graph::isAdjacent(int u, int v) {
     if ((u >= adjacencyMatrix.size()) || (v >= adjacencyMatrix.size()) || (u < 0) || (v < 0)) {
         std::cout << "Out of bounds! Returns false by default." << std::endl;
         return false;
-    } else if (adjacencyMatrix[u][v] == -1) {
-        return false;
-    } else if (adjacencyMatrix[v][u] == -1) {
+    } else if (adjacencyMatrix[std::min(u,v)][std::max(u,v)] == -1) {
         return false;
     } else {
         return true;
@@ -116,11 +114,13 @@ std::vector<int> Graph::getVertices(){
     return vertices;
 }
 
-std::unordered_map<int, int> Graph::getEdgesWithVertices() {
-    std::vector<int> edgeWeights = getEdgeWeights();
-    std::unordered_map<int, int> edgesAndVertices;
-    for (unsigned i = 0; i < (getAdjacencyMatrix().size() * getAdjacencyMatrix().size()); i++) {
-        edgesAndVertices[i] = edgeWeights[i];
+std::vector<int> Graph::getAdjacentVertices(int u) {
+    std::vector<int> adjacentVertices;
+    std::vector<int> vertices = getVertices();
+    for (int i : vertices) {
+        if (isAdjacent(i, u)) {
+            adjacentVertices.push_back(i);
+        }
     }
-    return edgesAndVertices;
+    return adjacentVertices;
 }
