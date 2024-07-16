@@ -1,9 +1,20 @@
 #define CATCH_CONFIG_RUNNER
 #include "graphs.h"
+#include "io_general.h"
 #include <iostream>
 #include <fstream>
 
 int main() {
+    std::vector<std::vector<int>> matrix = loadGraph("input_graph.txt");
+
+    std::cout << "Below is the adjacency matrix: " << std::endl;
+    for (int i = 0; i < 4; i ++){
+        for (int j = 0; j < 4; j ++){
+            std::cout << matrix[i][j] << " | ";
+        }
+        std::cout << std::endl;
+    }
+    
     // Testing Kruskal's using NetworkX!!
 
     // std::cout << "Let's test my graph out!" << std::endl;
