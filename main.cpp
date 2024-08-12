@@ -1,12 +1,12 @@
 #define CATCH_CONFIG_RUNNER
-// #include "src/graphs.h"
-// #include "src/io_general.h"
+#include "test/graph_class_test.h"
 #include "test/io_test.h"
 #include <iostream>
 #include <fstream>
 
 int main() {
     testLoadMatrix();
+    testGraphFunctions();
     // std::vector<std::vector<int>> matrix = loadGraph("input_graph.txt");
 
     // std::cout << "Below is the adjacency matrix: " << std::endl;

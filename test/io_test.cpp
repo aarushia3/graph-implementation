@@ -21,6 +21,15 @@ void printMatrix(const std::vector<std::vector<int>>& matrix) {
     return;
 }
 
+void printVector(const std::vector<int>& vec) {
+    for (std::vector<int>::const_iterator it = vec.begin(); it != vec.end(); ++it) {
+        std::cout << *it << " ";
+    }
+    std::cout << std::endl;
+    return;
+}
+
+
 void testLoadMatrix() {
     std::vector<std::vector<int>> actual = loadGraph("test/test_graphs/graph1.txt");
     std::vector<std::vector<int>> expected = {

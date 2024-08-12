@@ -5,4 +5,6 @@ bool test(T actual, T expected, int n);
 
 void printMatrix(const std::vector<std::vector<int>>& matrix);
 
+void printVector(const std::vector<int>& vec);
+
 void testLoadMatrix();

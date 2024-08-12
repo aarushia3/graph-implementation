@@ -1,3 +1,4 @@
 *.exe
 *.h.gch
 *.vscode
+build

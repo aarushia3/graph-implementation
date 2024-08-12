@@ -29,16 +29,16 @@ void Graph::removeEdge(int u, int v){
         std::cout << "Out of bounds, can't remove edge." << std::endl;
         return;
     }
-    adjacencyMatrix[std::min(u,v)][std::max(u,v)] = -1;
+    adjacencyMatrix[std::min(u,v)][std::max(u,v)] = 0;
     return;
 }
 
 void Graph::insertVertex(){
     adjacencyMatrix.resize(adjacencyMatrix.size() + 1);
-    adjacencyMatrix.back().resize(adjacencyMatrix[0].size(), -1);
+    adjacencyMatrix.back().resize(adjacencyMatrix[0].size(), 0);
 
     for (std::vector<int>& v : adjacencyMatrix) {
-        v.push_back(-1);
+        v.push_back(0);
     }
 }
 
@@ -75,7 +75,7 @@ bool Graph::isAdjacent(int u, int v) {
     if ((u >= adjacencyMatrix.size()) || (v >= adjacencyMatrix.size()) || (u < 0) || (v < 0)) {
         std::cout << "Out of bounds! Returns false by default." << std::endl;
         return false;
-    } else if (adjacencyMatrix[std::min(u,v)][std::max(u,v)] == -1) {
+    } else if (adjacencyMatrix[std::min(u,v)][std::max(u,v)] == 0) {
         return false;
     } else {
         return true;
@@ -98,7 +98,7 @@ std::vector<int> Graph::getEdgeWeights(){
     std::vector<int> edgeWeights;
     for (unsigned i = 0; i < getAdjacencyMatrix().size(); i ++){
         for (unsigned j = 0; j < getAdjacencyMatrix().size(); j ++){
-            if (adjacencyMatrix[i][j] != -1){
+            if (adjacencyMatrix[i][j] != 0){
                 edgeWeights.push_back(adjacencyMatrix[i][j]);
             }
         }

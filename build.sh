@@ -17,6 +17,7 @@ cd ../test
 
 # Compile all source files in test to object files
 g++ --std=c++20 -c io_test.cpp -o ../build/io_test.o
+g++ --std=c++20 -c graph_class_test.cpp -o ../build/graph_class_test.o
 
 # Navigate to main directory
 cd ..
@@ -25,7 +26,7 @@ cd ..
 g++ --std=c++20 -c main.cpp -o build/main.o
 
 # Link all object files into a single executable named main
-g++ -o build/main build/algorithms.o build/dsets.o build/graphs.o build/io_general.o build/io_test.o build/main.o
+g++ -o build/main build/algorithms.o build/dsets.o build/graphs.o build/io_general.o build/io_test.o build/main.o build/graph_class_test.o
 
 # Run the executable
 ./build/main

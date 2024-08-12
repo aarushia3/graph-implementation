@@ -3,7 +3,6 @@
 #include <unordered_map>
 
 class Graph {
-    
     private:
         // adjacency matrix to store the graph
         std::vector<std::vector<int>> adjacencyMatrix;
@@ -20,10 +19,10 @@ class Graph {
         void removeEdge(int u, int v);
         void insertVertex();
         void removeVertex(int u);
-        std::vector<int> getIncidentEdges(int u);
-        bool isAdjacent(int u, int v);
 
         // some more graph functions
+        std::vector<int> getIncidentEdges(int u);
+        bool isAdjacent(int u, int v);
         std::vector<std::vector<int>>& getAdjacencyMatrix();
         int getDegree(int u);
         std::vector<int> getEdgeWeights();
